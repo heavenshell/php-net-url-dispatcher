@@ -1,0 +1,21 @@
+2010-08-29 Heavens hell <sohyanagi@gmail.com>
+	* Change version number.
+	* Use spl_autoload_register and load() insted of __autload function.
+
+2010-08-08 Heavens hell <sohyanagi@gmail.com>
+	* Change version number.
+	* Add setControllerDirectoryName() enable to set controller directory name.
+	* Add getControllerDirectoryName() enable to get controller directory name.
+	* Add setActionDirectoryName() enable to set action directory name.
+	* Add getActionDirectoryName() enable to get action directory name.
+
+2010-08-05  Heavens hell <sohyanagi@gmail.com>
+	* Change Testing framework PHPUnit.
+	* Change split() to explode().
+
+2009-01-07  Heavens hell <sohyanagi@gmail.com>
+
+	* Add __call method in Net_URL_Dispatcher class.
+	* Add __call specs in DispatcherSpec.php.
+	* Fixed typo arraty to array in Net_URL_Dispatcher _match method's comment.
+	* Fixed Missing return value in Net_URL_Dispatcher dispatchAction method.

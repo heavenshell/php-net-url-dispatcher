@@ -1,0 +1,26 @@
+Dispatcher library for PHP.
+
+This module can dispatch to controller class or action class from PATH_INFO.
+
+ex)
+  <?php
+  require_once 'Net/URL/Dispatcher.php';
+  $dispatcher = new Net_URL_Dispatcher();
+  $dispatcher->connect(':controller/:action/*params')
+             ->dispatch('/path/to/directory');
+
+
+  <?php
+  class SampleController extends Net_URL_Dispatcher_Controller
+  {
+        public function fooAction()
+        {
+            echo $this->getParam('bar');  // baz
+        }
+  }
+
+
+System requirement
+  PHP 5.2
+  PHPUnit
+  Net_URL_Mapper
