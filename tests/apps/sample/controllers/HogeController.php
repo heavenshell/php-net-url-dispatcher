@@ -139,4 +139,17 @@ class HogeController extends Net_URL_Dispatcher_Controller
     {
         echo $this->getParam('hoge', 'fuga');
     }
+
+    public function getidAction()
+    {
+        $id = $this->getParam('id');
+        echo "id={$id}";
+    }
+
+    public function customparamsAction()
+    {
+        $id   = $this->getParam('id');
+        $name = $this->getParam('name');
+        echo "id={$id}, name={$name}";
+    }
 }

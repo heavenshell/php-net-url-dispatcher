@@ -425,6 +425,14 @@ class Net_URL_Dispatcher
         $params = $this->parseRequests($params);
         $params = self::deleteNullByte($params);
 
+        unset($match['controller']);
+        unset($match['action']);
+        unset($match['params']);
+
+        foreach ($match as $key => $value) {
+            $params[$key] = $value;
+        }
+
         if (!is_null($this->_params)) {
             if (is_array($this->_params) && is_array($params)) {
                 $params = array_merge($params, $this->_params);

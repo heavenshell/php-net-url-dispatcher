@@ -124,6 +124,55 @@ class Net_URL_DispatcherTest extends PHPUnit_Framework_TestCase
         $this->assertSame($buffer, 'fuga_bar');
     }
 
+    public function testShouldSetCustomParam()
+    {
+        $path       = dirname(__FILE__) . '/apps/sample/';
+        $dispatcher = new Net_URL_Dispatcher(__METHOD__);
+        $_ENV['PATH_INFO'] = 'hoge/getid/1';
+        ob_start();
+        $dispatcher->connect(':controller/:action/:id')->dispatch($path);
+        $buffer = ob_get_contents();
+        ob_end_clean();
+        $this->assertSame($buffer, 'id=1');
+
+        $_ENV['PATH_INFO'] = 'hoge/customparams/1/foo';
+        ob_start();
+        $dispatcher->connect(':controller/:action/:id/:name')->dispatch($path);
+        $buffer = ob_get_contents();
+        ob_end_clean();
+        $this->assertSame($buffer, 'id=1, name=foo');
+    }
+
+    public function testShouldSetCustomParams()
+    {
+        $path       = dirname(__FILE__) . '/apps/sample/';
+        $dispatcher = new Net_URL_Dispatcher(__METHOD__);
+        $_ENV['PATH_INFO'] = 'hoge/customparams/1/name/foo';
+        ob_start();
+        $dispatcher->connect(':controller/:action/:id/*params')->dispatch($path);
+        $buffer = ob_get_contents();
+        ob_end_clean();
+        $this->assertSame($buffer, 'id=1, name=foo');
+
+        ob_start();
+        $dispatcher->connect(':controller/:action/*params')->dispatch($path);
+        $buffer = ob_get_contents();
+        ob_end_clean();
+        $this->assertSame($buffer, 'id=1, name=foo');
+    }
+
+    public function testShouldSetCustomParamAfterWildcard()
+    {
+        $path       = dirname(__FILE__) . '/apps/sample/';
+        $dispatcher = new Net_URL_Dispatcher(__METHOD__);
+        $_ENV['PATH_INFO'] = 'hoge/customparams/name/foo/1';
+        ob_start();
+        $dispatcher->connect(':controller/:action/*params/:id')->dispatch($path);
+        $buffer = ob_get_contents();
+        ob_end_clean();
+        $this->assertSame($buffer, 'id=1, name=foo');
+    }
+
     public function testShouldCallNet_url_mapperClassMethodWhichHasRetrurnValue()
     {
         $path       = dirname(__FILE__) . '/apps/sample/';
